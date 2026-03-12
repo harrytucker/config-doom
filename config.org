@@ -2,7 +2,6 @@
 #+author: Harry Tucker
 
 # HTML and LaTeX export --------------------------------------------------------
-#+setupfile: org-themes/src/white_clean/white_clean.theme
 #+options: toc:nil
 #+latex_class: mimore
 # ------------------------------------------------------------------------------

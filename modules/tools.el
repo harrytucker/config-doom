@@ -119,12 +119,34 @@
 ;;         :n [return] #'kele-list-table-dwim
 ;;         :n "d" #'kele-list-kill))
 
+(defun my/wsl-p ()
+  "Return non-nil when Emacs is running inside Windows Subsystem for Linux."
+  (and (eq system-type 'gnu/linux)
+       (or (getenv "WSL_DISTRO_NAME")
+           (let ((proc-version "/proc/version"))
+             (and (file-readable-p proc-version)
+                  (with-temp-buffer
+                    (insert-file-contents proc-version)
+                    (string-match-p "microsoft"
+                                    (downcase (buffer-string)))))))))
+
+(defvar my/gptel-codex-model
+  (or (getenv "GPTEL_CODEX_MODEL") 'gpt-5.2)
+  "Codex model used by gptel when running on WSL.")
+
+(defvar my/eca-codex-model
+  (or (getenv "ECA_CODEX_MODEL") "openai/gpt-5-codex")
+  "Codex model used by eca-emacs when running on WSL.")
+
 (use-package! gptel
   :config
-  (setq gptel-model #'claude-opus-4.5
-        gptel-default-mode #'org-mode
-        gptel-include-tool-results t
-        gptel-backend (gptel-make-gh-copilot "Copilot"))
+  (let ((use-codex (my/wsl-p)))
+    (setq gptel-model (if use-codex my/gptel-codex-model #'claude-opus-4.5)
+          gptel-default-mode #'org-mode
+          gptel-include-tool-results t
+          gptel-backend (if use-codex
+                            (gptel-make-openai "OpenAI")
+                          (gptel-make-gh-copilot "Copilot"))))
 
   ;; Enable Macher for agentic tool use
   (macher-install)
@@ -140,7 +162,10 @@
         (:prefix ("l" . "llm")
          :desc "Toggle gptel-mode and enable solaire-mode" "t" #'my/gptel-toggle-and-enable-solaire)))
 
-(setq eca-chat-custom-model "github-copilot/claude-opus-4.5")
+(setq eca-chat-custom-model
+      (if (my/wsl-p)
+          my/eca-codex-model
+        "github-copilot/claude-opus-4.5"))
 
 (after! eca-chat
   (evil-set-initial-state 'eca-chat-mode 'normal)
@@ -239,11 +264,11 @@
   (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)
 
   ;; MCP server configuration
-  (setq agent-shell-mcp-servers
-        '(((name . "atlassian")
-           (type . "http")
-           (headers . [])
-           (url . "https://mcp.atlassian.com/v1/sse"))))
+  ;; (setq agent-shell-mcp-servers
+  ;;       '(((name . "atlassian")
+  ;;          (type . "http")
+  ;;          (headers . [])
+  ;;          (url . "https://mcp.atlassian.com/v1/sse"))))
 
   ;; Use Emacs state for diff buffers (agent-shell-diff)
   (add-hook 'diff-mode-hook
