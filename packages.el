@@ -10,6 +10,9 @@
 ;; Protobuf/gRPC - .proto file support
 (package! protobuf-mode)
 
+;; Caddy - Caddyfile syntax support
+(package! caddyfile-mode)
+
 ;; Kubernetes - cluster management and Jsonnet config files
 (package! kubernetes)
 ;;(package! kele) ; temporarily disabled (see modules/tools.org)
