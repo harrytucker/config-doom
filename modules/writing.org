@@ -65,6 +65,43 @@ Org Mode configuration for note-taking, task management, and document export.
   (setq org-latex-default-class "mimore"))
 #+end_src
 
+** HTML Export
+Every =C-c C-e h o= export uses a single hand-built theme (=html/org-export.css=)
+applied globally, rather than a per-file opt-in. The stylesheet is inlined into
+=org-html-head= at export time so exported files are self-contained and
+portable — no external stylesheet link to break when a file is moved. Code
+blocks are colourised via =htmlize=, baking in the current Emacs theme's
+(doom-dracula) syntax-highlighting colours directly as inline styles. The page
+defaults to a light off-white look; a toggle button in the header bar switches
+to a dark variant client-side (persisted via =localStorage=) rather than
+following the reader's OS/browser preference automatically.
+#+begin_src elisp
+(after! org
+  (setq org-html-doctype "html5"
+        org-html-html5-fancy t
+        org-html-head-include-default-style nil
+        org-html-preamble t
+        org-html-preamble-format
+        '(("en" "<div class=\"doc-header-inner\"><span><span class=\"doc-mark\">*</span><span class=\"doc-title\">%t</span></span><button id=\"theme-toggle\" type=\"button\" aria-label=\"Toggle dark mode\" title=\"Toggle dark mode\">&#9680;</button></div>"))
+        org-html-postamble t
+        org-html-postamble-format
+        '(("en" "<p class=\"postamble\">Exported %T</p>"))
+        org-html-htmlize-output-type 'inline-css
+        org-html-head
+        (concat "<style>"
+                (with-temp-buffer
+                  (insert-file-contents
+                   (concat doom-user-dir "html/org-export.css"))
+                  (buffer-string))
+                "</style>"
+                "<script>"
+                (with-temp-buffer
+                  (insert-file-contents
+                   (concat doom-user-dir "html/org-export.js"))
+                  (buffer-string))
+                "</script>")))
+#+end_src
+
 ** Org-Tree-Slide
 Present directly from Org buffers using =org-tree-slide=. Top-level headings
 become slides, with the fancy profile enabled for animations.

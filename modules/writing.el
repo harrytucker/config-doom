@@ -52,6 +52,31 @@
                  ("\\subparagraph{%s}" . "\\subparagraph\*{%s}")))
   (setq org-latex-default-class "mimore"))
 
+(after! org
+  (setq org-html-doctype "html5"
+        org-html-html5-fancy t
+        org-html-head-include-default-style nil
+        org-html-preamble t
+        org-html-preamble-format
+        '(("en" "<div class=\"doc-header-inner\"><span><span class=\"doc-mark\">*</span><span class=\"doc-title\">%t</span></span><button id=\"theme-toggle\" type=\"button\" aria-label=\"Toggle dark mode\" title=\"Toggle dark mode\">&#9680;</button></div>"))
+        org-html-postamble t
+        org-html-postamble-format
+        '(("en" "<p class=\"postamble\">Exported %T</p>"))
+        org-html-htmlize-output-type 'inline-css
+        org-html-head
+        (concat "<style>"
+                (with-temp-buffer
+                  (insert-file-contents
+                   (concat doom-user-dir "html/org-export.css"))
+                  (buffer-string))
+                "</style>"
+                "<script>"
+                (with-temp-buffer
+                  (insert-file-contents
+                   (concat doom-user-dir "html/org-export.js"))
+                  (buffer-string))
+                "</script>")))
+
 (after! org-tree-slide
   (setq org-tree-slide-skip-outline-level 2)
   (org-tree-slide-presentation-profile))

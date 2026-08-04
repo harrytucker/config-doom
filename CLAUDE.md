@@ -13,7 +13,7 @@ This is a literate [Doom Emacs](https://github.com/doomemacs/doomemacs) configur
 - `packages.el` is tangled from the `#+begin_src elisp :tangle packages.el` block near the end of `config.org` — edit that block in `config.org`, not `packages.el` directly (it gets regenerated).
 - `init.el` holds Doom's `doom!` module-selection block (which Doom modules/languages are enabled) and is edited directly (it is not tangled from org).
 - `config.el` is a legacy/duplicate entry point mirroring the module-loading calls in `config.org`; check both if changing how modules load.
-- `org-themes` is a git submodule (see `.gitmodules`).
+- `html/` holds assets for the Org HTML export theme (`org-export.css`), referenced from `modules/writing.org` via `doom-user-dir` — mirrors how `latex/` holds `mimore.cls` for LaTeX export.
 - `modules/workarounds.org` isolates MacOS-only fixes, guarded with `(featurep :system 'macos)` — keep platform-specific hacks there rather than scattering `when`/`featurep` checks across other modules.
 
 ## Editing workflow

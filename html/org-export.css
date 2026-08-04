@@ -1,0 +1,348 @@
+/* Literate Manuscript — global Org HTML export theme.
+   Embedded inline into every export via org-html-head (modules/writing.org),
+   so exported files stay self-contained and portable. Dark mode is a manual
+   toggle (button in the header bar), not automatic — see the inline script
+   also emitted from org-html-head. */
+
+:root {
+  --paper: #F7F6F1;
+  --surface: #FFFFFF;
+  --ink: #1B1D22;
+  --muted: #6B6F76;
+  --rule: #E4E2DB;
+  --accent: #6E56CF;
+  --accent-2: #D6577D;
+  --code-bg: #282a36;
+  --code-header: rgba(255, 255, 255, 0.05);
+  --code-fg: #f8f8f2;
+  --shadow: rgba(20, 20, 25, 0.10);
+
+  --font-body: Charter, "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --measure: 42rem;
+}
+
+:root[data-theme="dark"] {
+  --paper: #282a36;
+  --surface: #313343;
+  --ink: #f8f8f2;
+  --muted: #9aa1c4;
+  --rule: #44475a;
+  --accent: #bd93f9;
+  --accent-2: #ff79c6;
+  --code-bg: #1e1f29;
+  --code-header: rgba(255, 255, 255, 0.04);
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* ---- Header bar ---- */
+#preamble {
+  position: relative;
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: 0 1px 0 var(--shadow);
+}
+
+#preamble::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.doc-header-inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.doc-mark {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin-right: 0.6ch;
+}
+
+.doc-title {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+#theme-toggle {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+#theme-toggle:hover {
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+
+/* ---- Content ---- */
+#content {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+h1.title {
+  display: none; /* title already shown in the header bar */
+}
+
+.subtitle {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 2.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+h2::before, h3::before, h4::before, h5::before, h6::before {
+  color: var(--accent);
+  font-weight: 400;
+  margin-right: 0.5ch;
+}
+
+h2:not(#table-of-contents h2)::before { content: "*"; }
+h3::before { content: "**"; }
+h4::before { content: "***"; }
+h5::before { content: "****"; }
+h6::before { content: "*****"; }
+
+h2 { font-size: 1.4rem; border-top: 1px solid var(--rule); padding-top: 2.25rem; }
+h3 { font-size: 1.15rem; }
+h4, h5, h6 { font-size: 1rem; }
+
+p, ul, ol, blockquote, figure {
+  margin: 1rem 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--accent-2);
+}
+
+/* ---- Table of contents ---- */
+#table-of-contents {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 1px 2px var(--shadow);
+}
+
+#table-of-contents h2 {
+  margin-top: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  border-top: none;
+  padding-top: 0;
+}
+
+#text-table-of-contents ul {
+  list-style: none;
+  padding-left: 1.25rem;
+}
+
+#text-table-of-contents > ul {
+  padding-left: 0;
+}
+
+#text-table-of-contents a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+#text-table-of-contents a:hover {
+  color: var(--accent);
+}
+
+/* ---- Code blocks — boxed "terminal island", distinct from the page
+   background in both modes. Colours inside are baked in by htmlize
+   (org-html-htmlize-output-type 'inline-css) from the current Emacs theme. */
+.org-src-container {
+  position: relative;
+  margin: 1.75rem 0;
+  border-radius: 10px;
+  background: var(--code-bg);
+  box-shadow: 0 1px 2px var(--shadow), 0 14px 28px -18px var(--shadow);
+  overflow: hidden;
+}
+
+.org-src-container::before {
+  content: "\25CF \25CF \25CF";
+  display: block;
+  padding: 0.65rem 1.1rem 0.5rem;
+  font-size: 0.5rem;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.2);
+  background: var(--code-header);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+pre.src {
+  position: relative;
+  margin: 0;
+  padding: 1.1rem 1.35rem 1.35rem;
+  background: transparent !important;
+  color: var(--code-fg);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+pre.src:before {
+  position: absolute;
+  top: -1.75rem;
+  right: 1.1rem;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: none;
+}
+
+/* htmlize bakes each fontified token's *own* face background (e.g. the
+   org-block face from the Emacs buffer display) into inline styles — that
+   fights with the code box's own background and makes text hard to read.
+   We only want htmlize's foreground colours; strip every per-span
+   background it emits. An !important external rule beats a plain (non
+   !important) inline style, so this wins over htmlize's inline output. */
+pre.src span {
+  background-color: transparent !important;
+}
+
+pre.src-emacs-lisp:before, pre.src-elisp:before { content: "Emacs Lisp"; }
+pre.src-sh:before, pre.src-bash:before, pre.src-shell:before { content: "Shell"; }
+pre.src-python:before { content: "Python"; }
+pre.src-js:before, pre.src-javascript:before { content: "JavaScript"; }
+pre.src-css:before { content: "CSS"; }
+pre.src-json:before { content: "JSON"; }
+pre.src-yaml:before { content: "YAML"; }
+pre.src-org:before { content: "Org"; }
+pre.src-html:before { content: "HTML"; }
+pre.src-c:before, pre.src-C:before { content: "C"; }
+pre.src-conf:before { content: "Conf"; }
+
+/* Inline code / verbatim outside src blocks. Excludes the block-level
+   <code> org wraps around every pre.src's contents — applying a
+   background/padding to that multi-line inline element would render as a
+   separate fragmented box per line. */
+code:not(pre.src code), .verbatim {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--rule);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* ---- Tables ---- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+th {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---- Blockquotes / footnotes ---- */
+blockquote {
+  border-left: 3px solid var(--accent-2);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.footpara {
+  display: inline;
+}
+
+#footnotes {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---- Footer ---- */
+#postamble {
+  border-top: 1px solid var(--rule);
+}
+
+#postamble .postamble {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
