@@ -69,14 +69,19 @@ Org Mode configuration for note-taking, task management, and document export.
 
 ** HTML Export
 Every =C-c C-e h o= export uses a single hand-built theme (=html/org-export.css=)
-applied globally, rather than a per-file opt-in. The stylesheet is inlined into
-=org-html-head= at export time so exported files are self-contained and
-portable — no external stylesheet link to break when a file is moved. Code
-blocks are colourised via =htmlize=, baking in the current Emacs theme's
-(doom-dracula) syntax-highlighting colours directly as inline styles. The page
-defaults to a light off-white look; a toggle button in the header bar switches
-to a dark variant client-side (persisted via =localStorage=) rather than
-following the reader's OS/browser preference automatically.
+applied globally, rather than a per-file opt-in. The stylesheet (plus a Google
+Fonts =<link>= for Newsreader/JetBrains Mono, in =html/org-export-fonts.html=)
+is inlined into =org-html-head= at export time, so exported files are mostly
+self-contained — only the web fonts need network access, falling back to the
+system font stack when offline. Code blocks are colourised via =htmlize=,
+baking in the current Emacs theme's (doom-dracula) syntax-highlighting colours
+directly as inline styles when exporting interactively from Doom. The headless
+GitHub Pages build (=.github/scripts/publish.el=) has no live theme to pull
+colours from, so published code blocks currently render without syntax
+highlighting (bold/italic only) — a known gap, not a bug. The page defaults to
+a light off-white look; a toggle button in the header bar switches to a dark
+variant client-side (persisted via =localStorage=) rather than following the
+reader's OS/browser preference automatically.
 
 The actual variable-setting lives in =html/export-settings.el= rather than
 inline here, so the exact same config can be loaded by the GitHub Pages

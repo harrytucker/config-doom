@@ -3,6 +3,7 @@
 *.log
 tmp/
 *.html
+!html/org-export-fonts.html
 public/
 .github/scripts/.packages/
 

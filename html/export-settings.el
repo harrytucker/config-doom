@@ -20,7 +20,11 @@
           '(("en" "<p class=\"postamble\">Exported %T</p>"))
           org-html-htmlize-output-type 'inline-css
           org-html-head
-          (concat "<style>"
+          (concat (with-temp-buffer
+                    (insert-file-contents
+                     (concat html-dir "org-export-fonts.html"))
+                    (buffer-string))
+                  "<style>"
                   (with-temp-buffer
                     (insert-file-contents
                      (concat html-dir "org-export.css"))

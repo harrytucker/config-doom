@@ -1,8 +1,10 @@
 /* Literate Manuscript — global Org HTML export theme.
    Embedded inline into every export via org-html-head (modules/writing.org),
-   so exported files stay self-contained and portable. Dark mode is a manual
-   toggle (button in the header bar), not automatic — see the inline script
-   also emitted from org-html-head. */
+   so exported files stay self-contained and portable, aside from the Google
+   Fonts <link> tags in html/org-export-fonts.html — those need network access
+   and silently fall back to the system font stack below when offline. Dark
+   mode is a manual toggle (button in the header bar), not automatic — see the
+   inline script also emitted from org-html-head. */
 
 :root {
   --paper: #F7F6F1;
@@ -17,8 +19,8 @@
   --code-fg: #f8f8f2;
   --shadow: rgba(20, 20, 25, 0.10);
 
-  --font-body: Charter, "Iowan Old Style", Georgia, serif;
-  --font-mono: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+  --font-body: "Newsreader", Charter, "Iowan Old Style", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
 
   --measure: 60rem;
 }
@@ -87,8 +89,8 @@ body {
 
 .doc-title {
   font-family: var(--font-mono);
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
