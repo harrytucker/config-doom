@@ -7,8 +7,14 @@ MacOS-specific fixes:
   keyboards, which conflicts with Doom's workspace shortcuts. Re-bind this in
   insert mode only.
 - *Man-mode*: BSD =sed= doesn't work with =Man-mode=; use GNU =gsed= from Homebrew.
+- *Eshell bash-completion*: MacOS ships an outdated =bash=, so point
+  =bash-completion= at Homebrew's version instead. The path doesn't exist on
+  Linux, so it's guarded here rather than in =modules/shell.org=.
 #+begin_src elisp
 (when (featurep :system 'macos)
   (map! :i "M-3" #'(lambda () (interactive) (insert "#")))
-  (setq Man-sed-command "gsed"))
+  (setq Man-sed-command "gsed")
+
+  (after! bash-completion
+    (setq bash-completion-prog "/opt/homebrew/bin/bash")))
 #+end_src

@@ -11,15 +11,15 @@ This is a literate Doom Emacs configuration that tangles into the various
 configuration files that Doom expects. The configuration is split into modular
 files for better organization:
 
-| Module           | Purpose                                         |
-|------------------+-------------------------------------------------|
-| =ui.org=           | Theme, fonts, modeline, and visual settings     |
-| =editor.org=       | Evil mode, projectile, and completion settings  |
-| =shell.org=        | Eshell and terminal emulator configuration      |
-| =programming.org=  | Language-specific settings (Go, Rust, Python)   |
-| =writing.org=      | Org mode, Org Roam, Markdown, and LaTeX export  |
-| =tools.org=        | Kubernetes, AI assistants (gptel, ECA)          |
-| =workarounds.org=  | MacOS-specific fixes and quirks                 |
+| Module           | Purpose                                                  |
+|------------------+------------------------------------------------------------|
+| =ui.org=           | Theme, fonts, modeline, and visual settings               |
+| =editor.org=       | Evil mode, projectile, and completion settings             |
+| =shell.org=        | Eshell and terminal emulator configuration                 |
+| =programming.org=  | Language/tooling settings (SQL, PGmacs, JS/TS, Rust, Python, Go, PlantUML) |
+| =writing.org=      | Org mode, Org Roam, Markdown, and LaTeX export             |
+| =tools.org=        | Diff-mode bindings and Mise tool version management        |
+| =workarounds.org=  | MacOS-specific fixes and quirks                            |
 
 First, enable lexical binding for better performance:
 #+begin_src elisp

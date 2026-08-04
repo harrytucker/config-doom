@@ -9,7 +9,7 @@ This is a literate [Doom Emacs](https://github.com/doomemacs/doomemacs) configur
 ## Architecture
 
 - `config.org` is the root: sets `user-full-name`/`user-mail-address`, then calls `org-babel-load-file` on each file in `modules/*.org` in a fixed order, then tangles `packages.el` from its own `:tangle packages.el` source block.
-- `modules/*.org` — one file per concern (`ui`, `editor`, `shell`, `programming`, `writing`, `tools`, `workarounds`). Each file's elisp blocks are loaded directly via `org-babel-load-file` at startup — there are **no** committed `.el` counterparts for these; do not create `modules/*.el` files.
+- `modules/*.org` — one file per concern (`ui`, `editor`, `shell`, `programming`, `writing`, `tools`, `workarounds`). Each file's elisp blocks are loaded directly via `org-babel-load-file` at startup, which tangles a matching `modules/<name>.el` as a side effect. These tangled `.el` files are deliberately committed (see "Editing workflow" below) — the `.org` file is still the source of truth, so never hand-edit the `.el` file directly.
 - `packages.el` is tangled from the `#+begin_src elisp :tangle packages.el` block near the end of `config.org` — edit that block in `config.org`, not `packages.el` directly (it gets regenerated).
 - `init.el` holds Doom's `doom!` module-selection block (which Doom modules/languages are enabled) and is edited directly (it is not tangled from org).
 - `config.el` is a legacy/duplicate entry point mirroring the module-loading calls in `config.org`; check both if changing how modules load.
@@ -22,7 +22,8 @@ Since the source of truth is Org prose + embedded code blocks, not `.el` files:
 
 - Edit the relevant `#+begin_src elisp` block inside the appropriate `modules/*.org` file (or `config.org` for the packages block).
 - Prose above each block should stay in sync with what the code does — these files are meant to read as documentation, so update the surrounding explanation when behavior changes.
-- To tangle a single module to a real `.el` file for inspection/syntax-checking (does not happen automatically outside Emacs loading it):
+- Also update `config.org`'s module summary table when a module's scope changes (e.g. sections added/removed) — it's easy to let it drift.
+- After editing a module's `.org` file, regenerate its committed `modules/<name>.el` so the tracked tangle output stays in sync:
   ```
   emacs --batch -l org --eval '(org-babel-tangle-file "modules/<name>.org" "modules/<name>.el" "elisp")'
   ```
