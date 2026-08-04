@@ -103,8 +103,11 @@ and follows the active buffer.
 Map =SPC o c= to open a full calendar view via =calfw=, complementing the standard
 =org-agenda= view.
 #+begin_src elisp
+;; NOTE: no label on :prefix — `SPC o` is already labelled "open" upstream, and
+;; since Doom 635bc939 a labelled :prefix rebinds the prefix to a fresh keymap,
+;; wiping every binding already there.
 (map! :leader
-      :prefix ("o" . "open")
+      :prefix "o"
       :desc "Open calendar" "c" #'cfw:open-org-calendar)
 #+end_src
 

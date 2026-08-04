@@ -71,8 +71,11 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+;; NOTE: no label on :prefix — `SPC o` is already labelled "open" upstream, and
+;; since Doom 635bc939 a labelled :prefix rebinds the prefix to a fresh keymap,
+;; wiping every binding already there.
 (map! :leader
-      :prefix ("o" . "open")
+      :prefix "o"
       :desc "Open calendar" "c" #'cfw:open-org-calendar)
 
 (require 'auth-source)
