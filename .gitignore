@@ -3,5 +3,7 @@
 *.log
 tmp/
 *.html
+public/
+.github/scripts/.packages/
 
 .agent-shell

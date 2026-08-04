@@ -1,0 +1,18 @@
+#+title: Harry's Doom Emacs Config
+
+A literate [[https://github.com/doomemacs/doomemacs][Doom Emacs]] configuration. Start with [[file:config.org][config.org]], the root
+file that loads every module below in order.
+
+* Modules
+
+| Module                                             | Purpose                                                                    |
+|-----------------------------------------------------+-----------------------------------------------------------------------------|
+| [[file:modules/ui.org][ui.org]]                     | Theme, fonts, modeline, and visual settings                               |
+| [[file:modules/editor.org][editor.org]]             | Evil mode, projectile, and completion settings                            |
+| [[file:modules/shell.org][shell.org]]               | Eshell and terminal emulator configuration                                |
+| [[file:modules/programming.org][programming.org]]   | Language/tooling settings (SQL, PGmacs, JS/TS, Rust, Python, Go, PlantUML) |
+| [[file:modules/writing.org][writing.org]]           | Org mode, Org Roam, Markdown, and LaTeX export                            |
+| [[file:modules/tools.org][tools.org]]               | Diff-mode bindings and Mise tool version management                       |
+| [[file:modules/workarounds.org][workarounds.org]]   | MacOS-specific fixes and quirks                                           |
+
+Source: [[https://github.com/harrytucker/config-doom][harrytucker/config-doom]]

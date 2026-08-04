@@ -1,5 +1,7 @@
 #+title: Programming Configuration
 
+[[file:../index.org][Index]] · [[file:../config.org][config.org]]
+
 * Databases
 ** SQL
 PostgreSQL is the default SQL dialect. Formatting uses =pg_format= (from Homebrew)

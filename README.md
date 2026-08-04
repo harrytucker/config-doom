@@ -3,7 +3,9 @@
 A literate [Doom Emacs](https://github.com/doomemacs/doomemacs) configuration.
 The full config, including commentary, lives in [`config.org`](config.org),
 which tangles into `init.el`/`config.el`/`packages.el` and loads a set of
-modular literate files:
+modular literate files. It's also published as a browsable site at
+[harrytucker.github.io/config-doom](https://harrytucker.github.io/config-doom/),
+built by `.github/workflows/gh-pages.yml` on every push to `main`.
 
 | Module                              | Purpose                                         |
 |--------------------------------------|-------------------------------------------------|

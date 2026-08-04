@@ -20,7 +20,7 @@
   --font-body: Charter, "Iowan Old Style", Georgia, serif;
   --font-mono: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
 
-  --measure: 42rem;
+  --measure: 60rem;
 }
 
 :root[data-theme="dark"] {

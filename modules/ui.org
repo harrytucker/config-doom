@@ -1,5 +1,7 @@
 #+title: UI Configuration
 
+[[file:../index.org][Index]] · [[file:../config.org][config.org]]
+
 * Theme & Font
 Using the Dracula colour scheme with JetBrains Mono as the primary font.
 Treemacs is configured to use Doom's colour palette instead of the default

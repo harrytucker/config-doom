@@ -1,5 +1,7 @@
 #+title: Writing Configuration
 
+[[file:../index.org][Index]] · [[file:../config.org][config.org]]
+
 * Org Mode
 Org Mode configuration for note-taking, task management, and document export.
 
@@ -75,31 +77,14 @@ blocks are colourised via =htmlize=, baking in the current Emacs theme's
 defaults to a light off-white look; a toggle button in the header bar switches
 to a dark variant client-side (persisted via =localStorage=) rather than
 following the reader's OS/browser preference automatically.
+
+The actual variable-setting lives in =html/export-settings.el= rather than
+inline here, so the exact same config can be loaded by the GitHub Pages
+publish script (=.github/scripts/publish.el=), which runs in a plain
+=emacs --batch= session without Doom's =after!= macro available.
 #+begin_src elisp
 (after! org
-  (setq org-html-doctype "html5"
-        org-html-html5-fancy t
-        org-html-head-include-default-style nil
-        org-html-preamble t
-        org-html-preamble-format
-        '(("en" "<div class=\"doc-header-inner\"><span><span class=\"doc-mark\">*</span><span class=\"doc-title\">%t</span></span><button id=\"theme-toggle\" type=\"button\" aria-label=\"Toggle dark mode\" title=\"Toggle dark mode\">&#9680;</button></div>"))
-        org-html-postamble t
-        org-html-postamble-format
-        '(("en" "<p class=\"postamble\">Exported %T</p>"))
-        org-html-htmlize-output-type 'inline-css
-        org-html-head
-        (concat "<style>"
-                (with-temp-buffer
-                  (insert-file-contents
-                   (concat doom-user-dir "html/org-export.css"))
-                  (buffer-string))
-                "</style>"
-                "<script>"
-                (with-temp-buffer
-                  (insert-file-contents
-                   (concat doom-user-dir "html/org-export.js"))
-                  (buffer-string))
-                "</script>")))
+  (load (concat doom-user-dir "html/export-settings.el")))
 #+end_src
 
 ** Org-Tree-Slide

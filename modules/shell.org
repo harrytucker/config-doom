@@ -1,5 +1,7 @@
 #+title: Shell Configuration
 
+[[file:../index.org][Index]] · [[file:../config.org][config.org]]
+
 * Eshell
 Eshell is configured with Plan 9 smart display emulation and integrated with
 =eat= (Emulate A Terminal) for proper terminal emulation when needed. This setup

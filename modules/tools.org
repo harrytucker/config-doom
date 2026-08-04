@@ -1,5 +1,7 @@
 #+title: Tools Configuration
 
+[[file:../index.org][Index]] · [[file:../config.org][config.org]]
+
 * Diff Mode
 Evil-friendly binding for applying a diff buffer to its target file.
 #+begin_src elisp

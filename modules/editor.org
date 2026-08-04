@@ -1,5 +1,7 @@
 #+title: Editor Configuration
 
+[[file:../index.org][Index]] · [[file:../config.org][config.org]]
+
 * Undo System
 Use =undo-tree= as the undo system for Evil mode. This provides a visual tree of
 all changes, which is useful for recovering experimental code changes that would
