@@ -201,16 +201,6 @@ reliable than those for Go or Rust.
   (setq lsp-eslint-auto-fix-on-save t))
 #+end_src
 
-=fnm= manages Node versions via ephemeral shell environment variables, which
-Doom Emacs doesn't inherit. This resolves the =default= alias path at startup
-so that =node=, =npm=, and related binaries are always available.
-#+begin_src elisp
-(let ((fnm-node-bin (expand-file-name "~/.local/share/fnm/aliases/default/bin")))
-  (when (file-directory-p fnm-node-bin)
-    (setenv "PATH" (concat fnm-node-bin ":" (getenv "PATH")))
-    (add-to-list 'exec-path fnm-node-bin)))
-#+end_src
-
 * Rust
 Configure =rustic= to use =rust-analyzer= (the official language server) with
 procedural macro expansion and build script support enabled for better

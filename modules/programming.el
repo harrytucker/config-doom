@@ -177,11 +177,6 @@
 (after! lsp-eslint
   (setq lsp-eslint-auto-fix-on-save t))
 
-(let ((fnm-node-bin (expand-file-name "~/.local/share/fnm/aliases/default/bin")))
-  (when (file-directory-p fnm-node-bin)
-    (setenv "PATH" (concat fnm-node-bin ":" (getenv "PATH")))
-    (add-to-list 'exec-path fnm-node-bin)))
-
 (after! rustic
   (setq lsp-rust-server 'rust-analyzer
         lsp-rust-analyzer-proc-macro-enable t
