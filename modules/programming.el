@@ -203,4 +203,7 @@
   :config
   (setq go-ts-mode-indent-offset 4))
 
+(use-package! caddyfile-mode
+  :defer t)
+
 (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
