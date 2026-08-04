@@ -10,10 +10,12 @@ Org Mode configuration for note-taking, task management, and document export.
 - Archive completed tasks to an "Archive" heading within the same file
 - Collect agenda items from =~/org=, =~/org/roam=, and =~/org/roam/daily=
 #+begin_src elisp
-(use-package! org
-  :hook (org-mode . auto-fill-mode)
-  :defer-incrementally t
-  :config
+(add-hook 'org-mode-hook #'auto-fill-mode)
+
+;; Load Org's dependencies during idle time so the first Org buffer opens faster
+(doom-load-packages-incrementally '(org))
+
+(after! org
   (setq org-log-done 'time
         org-agenda-start-with-log-mode t
         org-hide-emphasis-markers t
@@ -67,9 +69,7 @@ Org Mode configuration for note-taking, task management, and document export.
 Present directly from Org buffers using =org-tree-slide=. Top-level headings
 become slides, with the fancy profile enabled for animations.
 #+begin_src elisp
-(use-package! org-tree-slide
-  :after org
-  :config
+(after! org-tree-slide
   (setq org-tree-slide-skip-outline-level 2)
   (org-tree-slide-presentation-profile))
 #+end_src
@@ -78,9 +78,7 @@ become slides, with the fancy profile enabled for animations.
 Org Roam extends Org Mode into a personal knowledge graph. The graph display
 hides common link types (file, http, https) to reduce visual noise.
 #+begin_src elisp
-(use-package! org-roam
-  :after org
-  :config
+(after! org-roam
   (setq org-roam-graph-link-hidden-types
         '("file" "http" "https")))
 #+end_src
@@ -89,12 +87,12 @@ hides common link types (file, http, https) to reduce visual noise.
 Web-based graph visualization for Org Roam. Syncs with the current Emacs theme
 and follows the active buffer.
 #+begin_src elisp
-(use-package! websocket
-  :after org-roam)
+;; org-roam-ui talks to the browser over a websocket, so make sure the package
+;; is loaded alongside org-roam
+(after! org-roam
+  (require 'websocket))
 
-(use-package! org-roam-ui
-  :after org-roam
-  :config
+(after! org-roam-ui
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t

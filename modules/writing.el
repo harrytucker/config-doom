@@ -1,7 +1,9 @@
-(use-package! org
-  :hook (org-mode . auto-fill-mode)
-  :defer-incrementally t
-  :config
+(add-hook 'org-mode-hook #'auto-fill-mode)
+
+;; Load Org's dependencies during idle time so the first Org buffer opens faster
+(doom-load-packages-incrementally '(org))
+
+(after! org
   (setq org-log-done 'time
         org-agenda-start-with-log-mode t
         org-hide-emphasis-markers t
@@ -50,24 +52,20 @@
                  ("\\subparagraph{%s}" . "\\subparagraph\*{%s}")))
   (setq org-latex-default-class "mimore"))
 
-(use-package! org-tree-slide
-  :after org
-  :config
+(after! org-tree-slide
   (setq org-tree-slide-skip-outline-level 2)
   (org-tree-slide-presentation-profile))
 
-(use-package! org-roam
-  :after org
-  :config
+(after! org-roam
   (setq org-roam-graph-link-hidden-types
         '("file" "http" "https")))
 
-(use-package! websocket
-  :after org-roam)
+;; org-roam-ui talks to the browser over a websocket, so make sure the package
+;; is loaded alongside org-roam
+(after! org-roam
+  (require 'websocket))
 
-(use-package! org-roam-ui
-  :after org-roam
-  :config
+(after! org-roam-ui
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
         org-roam-ui-update-on-save t

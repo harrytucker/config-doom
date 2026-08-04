@@ -174,9 +174,7 @@
     "]p" #'pgmacs--paginated-next
     "[p" #'pgmacs--paginated-prev))
 
-(use-package! lsp-eslint
-  :defer
-  :config
+(after! lsp-eslint
   (setq lsp-eslint-auto-fix-on-save t))
 
 (let ((fnm-node-bin (expand-file-name "~/.local/share/fnm/aliases/default/bin")))
@@ -184,26 +182,18 @@
     (setenv "PATH" (concat fnm-node-bin ":" (getenv "PATH")))
     (add-to-list 'exec-path fnm-node-bin)))
 
-(use-package! rustic
-  :defer
-  :config
+(after! rustic
   (setq lsp-rust-server 'rust-analyzer
         lsp-rust-analyzer-proc-macro-enable t
         lsp-rust-analyzer-cargo-run-build-scripts t
         rustic-indent-offset 4))
 
-(use-package! python-docstring-mode
-  :hook python-mode)
+(add-hook 'python-mode-hook #'python-docstring-mode)
 
 (after! python
   (set-formatter! 'ruff :modes '(python-mode python-ts-mode)))
 
-(use-package! go-mode
-  :defer
-  :config
+(after! go-mode
   (setq go-ts-mode-indent-offset 4))
-
-(use-package! caddyfile-mode
-  :defer t)
 
 (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))

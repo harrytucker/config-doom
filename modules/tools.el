@@ -1,15 +1,13 @@
-(use-package! kubernetes
-  :commands (kubernetes-overview)
-  :init
-  ;; Disable auto-polling and auto-redraw so magit-style folds don't get blown away.
-  ;; Use manual refresh (e.g. `gr` / `revert-buffer`) when you actually want it.
-  (setq kubernetes-poll-frequency nil
-        kubernetes-redraw-frequency nil)
+;; Disable auto-polling and auto-redraw so magit-style folds don't get blown away.
+;; Use manual refresh (e.g. `gr` / `revert-buffer`) when you actually want it.
+(setq kubernetes-poll-frequency nil
+      kubernetes-redraw-frequency nil)
 
-  (map! :leader
-        :prefix ("o" . "open")
-        :desc "Kubernetes (overview)" "k" #'kubernetes-overview)
-  :config
+(map! :leader
+      :prefix ("o" . "open")
+      :desc "Kubernetes (overview)" "k" #'kubernetes-overview)
+
+(after! kubernetes
   ;; Start kubernetes.el buffers in Evil normal state.
   (evil-set-initial-state 'kubernetes-overview-mode 'normal)
   (evil-set-initial-state 'kubernetes-display-thing-mode 'normal)
@@ -138,8 +136,7 @@
   (or (getenv "ECA_CODEX_MODEL") "openai/gpt-5-codex")
   "Codex model used by eca-emacs when running on WSL.")
 
-(use-package! gptel
-  :config
+(after! gptel
   (let ((use-codex (my/wsl-p)))
     (setq gptel-model (if use-codex my/gptel-codex-model #'claude-opus-4.5)
           gptel-default-mode #'org-mode
@@ -257,8 +254,7 @@
         :n "g," #'eca
         :n "g." #'eca-transient-menu))
 
-(use-package! agent-shell
-  :config
+(after! agent-shell
   ;; RET behavior: newline in insert mode, send in normal mode
   (evil-define-key 'insert agent-shell-mode-map (kbd "RET") #'newline)
   (evil-define-key 'normal agent-shell-mode-map (kbd "RET") #'comint-send-input)

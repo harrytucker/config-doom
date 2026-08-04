@@ -197,9 +197,7 @@ ESLint auto-fix on save is enabled to handle trivial lint failures
 automatically. This compensates for =lsp-eslint='s code actions being less
 reliable than those for Go or Rust.
 #+begin_src elisp
-(use-package! lsp-eslint
-  :defer
-  :config
+(after! lsp-eslint
   (setq lsp-eslint-auto-fix-on-save t))
 #+end_src
 
@@ -219,9 +217,7 @@ procedural macro expansion and build script support enabled for better
 completion in macro-heavy crates. The indent offset is explicitly set to 4
 spaces to match =rustfmt= defaults.
 #+begin_src elisp
-(use-package! rustic
-  :defer
-  :config
+(after! rustic
   (setq lsp-rust-server 'rust-analyzer
         lsp-rust-analyzer-proc-macro-enable t
         lsp-rust-analyzer-cargo-run-build-scripts t
@@ -233,8 +229,7 @@ Enable =python-docstring-mode= for better docstring editing with =fill-paragraph
 support and syntax highlighting. Use =ruff= instead of =black= for formatting
 (faster and more comprehensive).
 #+begin_src elisp
-(use-package! python-docstring-mode
-  :hook python-mode)
+(add-hook 'python-mode-hook #'python-docstring-mode)
 
 (after! python
   (set-formatter! 'ruff :modes '(python-mode python-ts-mode)))
@@ -243,9 +238,7 @@ support and syntax highlighting. Use =ruff= instead of =black= for formatting
 * Go
 Configure =go-ts-mode= with the correct 4-space indent offset to match =gofmt=.
 #+begin_src elisp
-(use-package! go-mode
-  :defer
-  :config
+(after! go-mode
   (setq go-ts-mode-indent-offset 4))
 #+end_src
 

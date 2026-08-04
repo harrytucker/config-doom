@@ -13,9 +13,7 @@ Ignore noisy directories when searching with Projectile. Go's =vendor/= director
 is particularly problematic as it contains vendored dependencies that clutter
 search results.
 #+begin_src elisp
-(use-package! projectile
-  :defer
-  :config
+(after! projectile
   (add-to-list 'projectile-globally-ignored-directories "*vendor"))
 #+end_src
 
@@ -23,8 +21,6 @@ search results.
 Use =corfu= for in-buffer completion. The =corfu-preselect= setting ensures the
 first valid candidate is always pre-selected for faster confirmation.
 #+begin_src elisp
-(use-package! corfu
-  :defer
-  :config
+(after! corfu
   (setq corfu-preselect 'prompt))
 #+end_src

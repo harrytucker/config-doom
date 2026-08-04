@@ -1,11 +1,7 @@
 (evil-set-undo-system 'undo-tree)
 
-(use-package! projectile
-  :defer
-  :config
+(after! projectile
   (add-to-list 'projectile-globally-ignored-directories "*vendor"))
 
-(use-package! corfu
-  :defer
-  :config
+(after! corfu
   (setq corfu-preselect 'prompt))
