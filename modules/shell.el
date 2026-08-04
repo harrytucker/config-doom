@@ -6,5 +6,6 @@
 
 (add-hook 'eshell-load-hook #'eat-eshell-mode)
 
-(after! bash-completion
-  (setq bash-completion-prog "/opt/homebrew/bin/bash"))
+(when (featurep :system 'macos)
+  (after! bash-completion
+    (setq bash-completion-prog "/opt/homebrew/bin/bash")))

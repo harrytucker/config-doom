@@ -9,7 +9,8 @@ Key settings:
 - Enable =em-smart= for Plan 9-style smart command display
 - Clear =eshell-visual-commands= since =eat= handles curses applications
 - Use =plain-echo-behavior= for proper =-n= flag support in echo
-- Point =bash-completion= at Homebrew's Bash (MacOS ships an outdated version)
+- On MacOS only, point =bash-completion= at Homebrew's Bash (MacOS ships an
+  outdated version). The path doesn't exist on Linux, so it's guarded.
 #+begin_src elisp
 (after! eshell
   (require 'em-smart)
@@ -19,6 +20,7 @@ Key settings:
 
 (add-hook 'eshell-load-hook #'eat-eshell-mode)
 
-(after! bash-completion
-  (setq bash-completion-prog "/opt/homebrew/bin/bash"))
+(when (featurep :system 'macos)
+  (after! bash-completion
+    (setq bash-completion-prog "/opt/homebrew/bin/bash")))
 #+end_src
