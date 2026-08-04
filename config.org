@@ -43,7 +43,7 @@ and source control metadata.
 #+begin_src elisp
 (setq user-full-name "Harry Tucker"
       user-mail-address "tucker.harry@outlook.com")
-#+END_SRC
+#+end_src
 
 ** Load Modules
 Load configuration from separate module files. Each module is a literate Org
@@ -85,6 +85,9 @@ imported using the =package!= macro. Organized by category.
 ;; PostgreSQL - database browser and client library
 (package! pg :recipe (:host github :repo "emarsden/pg-el"))
 (package! pgmacs :recipe (:host github :repo "emarsden/pgmacs"))
+
+;; Mise - tool version manager integration
+(package! mise)
 
 ;; Utilities
 (package! command-log-mode) ; display keystrokes in a buffer

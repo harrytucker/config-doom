@@ -8,3 +8,13 @@ Evil-friendly binding for applying a diff buffer to its target file.
       :localleader
       :desc "Apply buffer" "a" #'diff-apply-buffer)
 #+end_src
+
+* Mise
+Loads [[https://mise.jdx.dev][mise]]-managed tool versions and environment variables into Emacs's
+=exec-path=/=process-environment=, globally, and keeps eshell's environment
+in sync when changing directories.
+#+begin_src elisp
+(after! mise
+  (setq mise-update-on-eshell-directory-change t))
+(add-hook 'after-init-hook #'global-mise-mode)
+#+end_src

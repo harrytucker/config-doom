@@ -22,6 +22,9 @@
 (package! pg :recipe (:host github :repo "emarsden/pg-el"))
 (package! pgmacs :recipe (:host github :repo "emarsden/pgmacs"))
 
+;; Mise - tool version manager integration
+(package! mise)
+
 ;; Utilities
 (package! command-log-mode) ; display keystrokes in a buffer
 (package! prism)            ; scope-based syntax highlighting
